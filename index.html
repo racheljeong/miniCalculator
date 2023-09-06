@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <style>
+      body {
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      //const[sum, setSum] = React.useState();
+      const [amount1, setAMount1] = React.useState(0);
+      const [amount2, setAMount2] = React.useState(0);
+
+      const [selected, setSelected] = React.useState("plus");
+
+      const changeAmount1 = (event) => {
+        //console.log(typeof event.target.value);
+        setAMount1(Number(event.target.value));
+      };
+
+      const changeAmount2 = (event) => {
+        console.log("2", event.target.value);
+        setAMount2(Number(event.target.value));
+      };
+
+      const handleSelect = (event) => {
+        setSelected(event.target.value);
+      };
+
+      // function Result(sum) {
+      //   return;
+      //   <div>
+      //     <h2>The Result is :sum</h2>
+      //   </div>;
+      // }
+
+      const calulBtn = (event) => {
+        console.log("clicked");
+
+        console.log(`selected!!!`, selected);
+        let sum = 0;
+
+        switch (selected) {
+          case "plus":
+            console.log(typeof amount1);
+            sum = amount1 + amount2;
+            break;
+          case "minus":
+            console.log(typeof amount1);
+            sum = amount1 - amount2;
+            break;
+          case "times":
+            sum = amount1 * amount2;
+            break;
+          case "devide":
+            sum = amount1 / amount2;
+            break;
+        }
+        console.log("sum", sum);
+        const resultDiv = document.getElementById("resultDiv");
+        resultDiv.innerText = `The Result is :` + sum;
+        //return (<Result />), sum;
+      };
+
+      return (
+        <div className="container">
+          <h1>🔥 Calculator 🔥</h1>
+          <label htmlFor="value1">🔥 Value1 🔥</label>
+          <input
+            id="value1"
+            type="number"
+            value={amount1}
+            onChange={changeAmount1}
+          ></input>
+          <label htmlFor="value2">🔥 Value2 🔥</label>
+          <input
+            id="value2"
+            type="number"
+            value={amount2}
+            onChange={changeAmount2}
+          ></input>
+          <select onChange={handleSelect}>
+            Select Operation
+            <option value="0">Select Operation</option>
+            <option value="plus"> + </option>
+            <option value="minus"> - </option>
+            <option value="times"> * </option>
+            <option value="devide"> / </option>
+          </select>
+          <button onClick={calulBtn}>Calculate!</button>
+          <div>
+            <h2 id="resultDiv"></h2>
+          </div>
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
